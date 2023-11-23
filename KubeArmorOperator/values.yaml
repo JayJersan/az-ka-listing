@@ -1,0 +1,57 @@
+autoDeploy: true
+
+kubearmorOperator:
+  name: kubearmor-operator
+  imagePullPolicy: IfNotPresent
+  
+global:
+  azure:
+    images:
+      kubearmorOperator:
+        image: kubearmor-operator
+        registry: kalisting.azurecr.io
+        digest: sha256:c32671d5b3332d2344c7dafb0db0f98328fbf4449e7074990954853c45702b6c
+        
+        # KubeArmor image and pull policy
+      kubearmorImage:
+        registry: kalisting.azurecr.io
+        image: kubearmor
+        digest: sha256:a9105c4f4a452a9d707f0dff109992afc8919d41086164e018701103ad660540
+        imagePullPolicy: Always                 # DEFAULT - Always
+    
+      # KubeArmor init image and pull policy
+      kubearmorInitImage:
+        registry: kalisting.azurecr.io
+        image: kubearmor-init
+        digest: sha256:7b0994f8e06b624c857bc9f6fb4da6536ef0737e36c887d0f11878b883ac1a1e
+        imagePullPolicy: Always                 # DEFAULT - Always
+    
+      # KubeArmor relay image and pull policy
+      kubearmorRelayImage:
+        registry: kalisting.azurecr.io
+        image: kubearmor-relay-server
+        digest: sha256:a304dd0a25ef0b423f140e3f4c802f0c2203b37158314ba7aa039ce26c3ac1a9
+        imagePullPolicy: Always                   # DEFAULT - Always
+    
+      # KubeArmor controller image and pull policy
+      kubearmorControllerImage:
+        registry: kalisting.azurecr.io
+        image: kubearmor-controller
+        digest: sha256:33cd8d06196b7b76fe8a1749505cdeaecbea4602d477ac2702c3fef787e1c1f4
+        imagePullPolicy: Always                  # DEFAULT - Always
+    
+      # kube-rbac-proxy image and pull policy
+      kubeRbacProxyImage:
+        registry: kalisting.azurecr.io/kubebuilder
+        image: kube-rbac-proxy
+        digest: sha256:a5a3afc587c86f484e20e279dbaa2b08e2a4c8957e4424b8d5334006c22c6fbe
+        imagePullPolicy: Always
+
+kubearmorConfig:
+  defaultCapabilitiesPosture: audit
+  defaultFilePosture: audit
+  defaultNetworkPosture: audit
+  defaultVisibility: process,network
+  enableStdOutLogs: false
+  enableStdOutAlerts: false
+  enableStdOutMsgs: false        

@@ -1,0 +1,32 @@
+{{- if .Values.autoDeploy }}
+apiVersion: operator.kubearmor.com/v1
+kind: KubeArmorConfig
+metadata:
+    annotations:
+        "helm.sh/hook": post-install,post-upgrade
+    labels:
+        app.kubernetes.io/name: kubearmorconfig
+        app.kubernetes.io/instance: kubearmorconfig-sample
+        app.kubernetes.io/part-of: kubearmoroperator
+        app.kubernetes.io/managed-by: kustomize
+        app.kubernetes.io/created-by: kubearmoroperator
+    name: kubearmor-default
+    namespace: {{ .Release.Namespace }}
+spec:
+    {{- toYaml .Values.kubearmorConfig | nindent 4}}
+    kubearmorImage:
+        image: "{{ .Values.global.azure.images.kubearmorImage.registry }}/{{ .Values.global.azure.images.kubearmorImage.image }}@{{ .Values.global.azure.images.kubearmorImage.digest }}"
+        imagePullPolicy: {{ .Values.global.azure.images.kubearmorImage.imagePullPolicy }}
+    kubearmorInitImage:
+        image: "{{ .Values.global.azure.images.kubearmorInitImage.registry }}/{{ .Values.global.azure.images.kubearmorInitImage.image }}@{{ .Values.global.azure.images.kubearmorInitImage.digest }}"
+        imagePullPolicy: {{ .Values.global.azure.images.kubearmorInitImage.imagePullPolicy }}
+    kubearmorRelayImage:
+        image: "{{ .Values.global.azure.images.kubearmorRelayImage.registry }}/{{ .Values.global.azure.images.kubearmorRelayImage.image }}@{{ .Values.global.azure.images.kubearmorRelayImage.digest }}"
+        imagePullPolicy: {{ .Values.global.azure.images.kubearmorRelayImage.imagePullPolicy }}
+    kubearmorControllerImage:
+        image: "{{ .Values.global.azure.images.kubearmorControllerImage.registry }}/{{ .Values.global.azure.images.kubearmorControllerImage.image }}@{{ .Values.global.azure.images.kubearmorControllerImage.digest }}"
+        imagePullPolicy: {{ .Values.global.azure.images.kubearmorControllerImage.imagePullPolicy }}
+    kubeRbacProxyImage:
+        image: "{{ .Values.global.azure.images.kubeRbacProxyImage.registry }}/{{ .Values.global.azure.images.kubeRbacProxyImage.image }}@{{ .Values.global.azure.images.kubeRbacProxyImage.digest }}"
+        imagePullPolicy: {{ .Values.global.azure.images.kubeRbacProxyImage.imagePullPolicy }}
+{{- end}}

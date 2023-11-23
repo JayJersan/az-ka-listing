@@ -1,0 +1,20 @@
+applicationName: com.accuknox.kubearmor
+publisher: "AccuKnox"
+description: "Cloud-native Runtime Security Enforcement System. [CNCF Sandbox Project]"
+version: 1.0.0 #Must be in the format of #.#.#
+helmChart: "./KubeArmorOperator"
+clusterArmTemplate: "./mainTemplate.json"
+uiDefinition: "./createUIDefinition.json"
+registryServer: "kalisting.azurecr.io"
+extensionRegistrationParameters:
+  defaultScope: "cluster" # cluster or namespace
+  namespace: "kubearmor" # Specify the namespace the extension will install into. This property is required when defaultScope field value is chosen as 'cluster'
+  supportedClusterTypes:
+    connectedClusters:
+      - distribution: ["All"]
+        distributionSupported: true
+        unsupportedVersions: null
+    managedClusters:
+      - distribution: ["All"]
+        distributionSupported: true
+        unsupportedVersions: null
